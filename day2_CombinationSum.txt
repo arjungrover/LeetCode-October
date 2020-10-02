@@ -1,0 +1,37 @@
+/*
+Since the problem is to get all the possible results, not the best or the number of result, thus we don’t need to consider DP(dynamic programming), recursion is needed to handle it.
+*/
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+    
+        return help(candidates, target, 0);
+    }
+    
+    public List<List<Integer>> help(int[] candidates, int target, int idx){
+        if(target<0){
+            return new ArrayList<>();
+        }
+        if(target==0){
+            
+            List<List<Integer>> blist = new ArrayList<>();
+            blist.add(new ArrayList<>());
+            return blist;
+        }
+        List<List<Integer>> res = new ArrayList<>();
+        
+        for(int i=idx;i<candidates.length;i++){
+            
+            int n = candidates[i];
+            
+            List<List<Integer>> list = help(candidates, target-n, i);
+            
+            for(List<Integer> ll:list){
+                ll.add(n);
+                res.add(ll);
+            }
+            
+        }
+        
+        return res;
+    }
+}
